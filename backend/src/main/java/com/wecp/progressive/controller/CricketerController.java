@@ -1,7 +1,10 @@
+
+
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Cricketer;
 import com.wecp.progressive.entity.Team;
+import com.wecp.progressive.exception.TeamCricketerLimitExceededException;
 import com.wecp.progressive.service.impl.CricketerServiceImplJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +46,10 @@ public class CricketerController {
         try {
             int cricketerId = cricketerServiceImplJpa.addCricketer(cricketer);
             return new ResponseEntity<>(cricketerId, HttpStatus.CREATED);
-        } catch (SQLException e) {
+        }catch(TeamCricketerLimitExceededException t){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
+        catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -79,3 +85,4 @@ public class CricketerController {
         }
     }
 }
+
