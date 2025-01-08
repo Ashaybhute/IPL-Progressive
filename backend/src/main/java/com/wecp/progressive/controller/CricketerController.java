@@ -1,5 +1,3 @@
-
-
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Cricketer;
@@ -49,7 +47,7 @@ public class CricketerController {
         }catch(TeamCricketerLimitExceededException t){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } 
-        catch (SQLException e) {
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -85,4 +83,3 @@ public class CricketerController {
         }
     }
 }
-
